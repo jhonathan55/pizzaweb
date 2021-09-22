@@ -6,7 +6,17 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+/*
+Importamos estas librerias para utilizar firebase
+*/
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+//import { AngularFireAuth } from '@angular/fire/compat/auth';
 
+/**
+ * end import
+ */
 @NgModule({
   declarations: [
     AppComponent,NavbarComponent
@@ -16,11 +26,19 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,
+    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
+    //AngularFireAuth
+   
+  
     
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ 
+ }
