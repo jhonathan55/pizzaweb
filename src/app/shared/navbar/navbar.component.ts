@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 //import desde service auth
 import { AuthService } from 'src/app/auth/services/auth.service';
 
@@ -9,20 +11,24 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   //provires AuthService
   providers:[AuthService]
 })
-export class NavbarComponent implements OnInit {
-  public isLogged= false;
-  constructor(private authSvc:AuthService) { }
+export class NavbarComponent  {
+  //variables para identificar si el usuario esta logeado y para obtener el usuario desde firebase
 
+ // public user: any;
+  public user$: Observable<any> = this.authSvc.afAuth.user;
 
-  //metodo obtine el usuario desde firebase getCorrentUser creado en authService
-  async ngOnInit() {
-   
-    const user = await this.authSvc.getCorrentUser();
-    if(user){
-      this.isLogged=true
-      console.log('user=>',user
-      );
+  constructor(private authSvc:AuthService, private router:Router) { }
+
+  //metodo de cerrar sesión 
+  async onLogout(){
+    try{
+      await this.authSvc.logout();
+      this.router.navigate(['/login'])
+    }catch(error){
+      console.error(error);
+      
     }
+    
   }
 
 }
