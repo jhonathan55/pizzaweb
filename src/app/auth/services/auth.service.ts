@@ -14,8 +14,6 @@ export class AuthService {
   public user: firebase.User | undefined;
 
 
-
-
   /*Inyectamos en el contructor la propiedad AngularFireAuth
    */
   constructor(public afAuth: AngularFireAuth) { }
@@ -32,9 +30,7 @@ export class AuthService {
     }
     catch (error) {
       return console.log(error);
-
     }
-
   }
   //metodo register
   async register(email: string, password: string) {
