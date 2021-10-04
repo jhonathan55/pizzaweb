@@ -4,32 +4,32 @@
             <h3 class="text-center">Iniciar Sesión</h3>
             <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="m-3">
                 <!--directivas de angular para la validación de formularios mat-form-fiel-->
+                <div class="form-floating mb-3">
+                    <!--formControlName captura las variables del form al TS tambien se declaran en  TS-->
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        formControlName="email" [class]="isValidField('email')">
+                    <label for="floatingInput">Email address</label>
+                    <div class="invalid-feedback">
+                        <span *ngIf="loginForm.get('email')?.errors?.required">
+                            Debes ingresar un email.
+                        </span>
+                        <span *ngIf="loginForm.get('email')?.errors?.pattern">
+                            Debes ingresar un email valido.
+                        </span>
+                    </div>
+                </div>
+                <div class="form-floating">
+                    <!--formControlName captura las variables del form al TS tambien se declaran en  TS-->
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                        formControlName="password" [class]="isValidField('password')">
+                    <label for="floatingPassword">Password</label>
+                    <div class="invalid-feedback">
+                        <span *ngIf="!loginForm.get('password')?.errors?.minLength">
+                            Debes ingresar una contraseña de 6 caracteres como minimo.
+                        </span>
+                    </div>
+                </div>
 
-                <mat-form-field class="w-100">
-                    <div class="form-floating mb-3">
-                        <!--formControlName captura las variables del form al TS tambien se declaran en  TS-->
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                            formControlName="email">
-                        <label for="floatingInput">Email address</label>
-                    </div>
-                </mat-form-field>
-                <!--
-                <mat-error *ngIf="ifValidField('email')">
-                    {{getErrorMessage("email")}}
-                </mat-error>
-                -->
-                <mat-form-field class="w-100">
-                    <div class="form-floating">
-                        <!--formControlName captura las variables del form al TS tambien se declaran en  TS-->
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                            formControlName="password">
-                        <label for="floatingPassword">Password</label>
-                    </div>
-                </mat-form-field>
-                <!--
-                <mat-error *ngIf="ifValidField('password')">
-                    {{getErrorMessage("password")}}
-                </mat-error>-->
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-outline-info mt-2">
                         <font style="vertical-align: inherit;">
@@ -38,6 +38,7 @@
                     </button>
                 </div>
             </form>
+
             <p class="text-info text-center">
                 <a [routerLink]="['/register']">
                     <font style="vertical-align: inherit;">

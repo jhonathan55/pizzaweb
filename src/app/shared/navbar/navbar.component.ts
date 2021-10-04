@@ -14,7 +14,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class NavbarComponent  {
   //variables para identificar si el usuario esta logeado y para obtener el usuario desde firebase
 
- // public user: any;
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
   constructor(private authSvc:AuthService, private router:Router) { }
@@ -23,12 +22,11 @@ export class NavbarComponent  {
   async onLogout(){
     try{
       await this.authSvc.logout();
-      this.router.navigate(['/login'])
-    }catch(error){
-      console.error(error);
+      this.router.navigate(['/login']);
       
+    }catch(error){
+      console.error(error); 
     }
-    
   }
 
 }
