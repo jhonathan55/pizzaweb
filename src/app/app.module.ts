@@ -14,6 +14,7 @@ Importamos estas librerias para utilizar firebase
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { FooterComponent } from './shared/footer/footer.component';
 //import desde angular material
 
 /**
@@ -21,7 +22,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
  */
 @NgModule({
   declarations: [
-    AppComponent, NavbarComponent
+    AppComponent, NavbarComponent, FooterComponent
 
   ],
   imports: [
