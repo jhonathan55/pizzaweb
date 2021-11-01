@@ -7,7 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 /*
 Importamos estas librerias para utilizar firebase
 */
@@ -15,11 +14,10 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FooterComponent } from './shared/footer/footer.component';
-//import desde angular material
+//import http para conexión con la api
+import {HttpClientModule} from '@angular/common/http'
 
-/**
- * end import
- */
+
 @NgModule({
   declarations: [
     AppComponent, NavbarComponent, FooterComponent
@@ -33,11 +31,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     AngularFireModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    HttpClientModule
     
-    //AngularFireAuth
-
-
-
   ],
   providers: [],
   bootstrap: [AppComponent]

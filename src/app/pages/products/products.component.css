@@ -1,0 +1,6 @@
+.container-fluid{
+    display: flex;
+    flex-wrap: wrap; /*permite ocupar toda la pantalla*/
+    justify-content: center;
+    margin-top: 1rem;
+}

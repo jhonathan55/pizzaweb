@@ -9,6 +9,9 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule) }, 
   { path: 'register', loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule) },
   { path: 'pizzas', loadChildren: () => import('./auth/pizzas/pizzas.module').then(m => m.PizzasModule) },
+  
+ 
+  { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule) },
   //cuando no existe ninguna redirección te dirige a home sirve para apuntar a home desde el principio NOTA:siempre va al final
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 

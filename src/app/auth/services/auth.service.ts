@@ -6,7 +6,7 @@ import firebase y autentificación
 import { FirebaseApp } from '@firebase/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
-import { first } from 'rxjs/operators';  
+import { first } from 'rxjs/operators';
 
 @Injectable()
 
@@ -23,7 +23,7 @@ export class AuthService {
       const result = await this.afAuth.signInWithEmailAndPassword(
         email,
         password
-        
+
       );
       return result;
     }
@@ -32,7 +32,7 @@ export class AuthService {
     }
   }
   //metodo register
-  async register(email: string, password: string) {
+  async register(name: string, email: string, cel: number, password: string) {
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(
         email,
