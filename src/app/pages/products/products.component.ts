@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
 import { Product } from './interfaces/product.interface';
 import { ProductsService } from './services/products.service';
 
@@ -9,13 +10,17 @@ import { ProductsService } from './services/products.service';
 })
 export class ProductsComponent implements OnInit {
   products$=this.productsSvc.products;
-  constructor(private productsSvc: ProductsService) { 
+
+  constructor(
+    private productsSvc: ProductsService,
+    private shoppingSvc:ShoppingCartService
+    ) { 
 
   }
 
   ngOnInit(): void {
   }
  addToCart(product:Product):void{
-    console.log("add to cart ", product);
+   this.shoppingSvc.updateCart(product);
  }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 //import desde service auth
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,10 @@ export class NavbarComponent  {
 
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
-  constructor(private authSvc:AuthService, private router:Router) { }
+  constructor(
+    private authSvc:AuthService, 
+    private router:Router,
+    ) { }
 
   //metodo de cerrar sesión 
   async onLogout(){

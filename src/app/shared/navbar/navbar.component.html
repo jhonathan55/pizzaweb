@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <!--inicio container-->
   <div class="container">
-   
+
     <a class="navbar-brand" [routerLink]="['/']">
       <font style="vertical-align: inherit;">
         <font style="vertical-align: inherit;">Pizza Mia</font>
@@ -58,7 +58,7 @@
             <font style="vertical-align: inherit;">
               <font style="vertical-align: inherit;">{{user?.email}} </font>
             </font>
-            
+
           </a>
           <div class="dropdown-menu">
             <a class="dropdown-item" routerLink="/myAccount">
@@ -80,7 +80,7 @@
           </div>
         </li>
       </ul>
-   
+
       <ng-template #login>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
@@ -115,8 +115,12 @@
           </div>
         </li>
       </ng-template>
+
     </div>
+    <!--cartComponent-->
+    <app-cart></app-cart>
     <!--fin collapse navbar-collapse-->
   </div>
+
   <!--fin container-->
 </nav>

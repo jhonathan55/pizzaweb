@@ -15,12 +15,13 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FooterComponent } from './shared/footer/footer.component';
 //import http para conexión con la api
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { CartComponent } from './shared/cart/cart.component'
 
 
 @NgModule({
   declarations: [
-    AppComponent, NavbarComponent, FooterComponent
+    AppComponent, NavbarComponent, FooterComponent, CartComponent
 
   ],
   imports: [

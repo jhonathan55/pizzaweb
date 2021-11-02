@@ -12,6 +12,9 @@ const routes: Routes = [
   
  
   { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule) },
+  
+ 
+  { path: 'checkout', loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule) },
   //cuando no existe ninguna redirección te dirige a home sirve para apuntar a home desde el principio NOTA:siempre va al final
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 
