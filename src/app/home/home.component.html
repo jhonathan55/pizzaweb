@@ -1,22 +1,21 @@
-<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+<div id="myCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-indicators">
-    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-      aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
   <div class="carousel-inner">
-    <div class="carousel-item active" data-interval="500">
+    <div class="carousel-item active" data-interval="0">
       <div class="overlay-image" style="background-image:url(../../assets/carrusel-1.jpg);"></div>
       <div class="container">
         <div class="carousel-caption text-start">
           <h1>PIZZA MÍA</h1>
           <p>Bienvenido a probar nuestras pizzas, dejate envolver por su sabor</p>
-          <p><a class="btn btn-lg btn-primary" href="#">Ver Menú</a></p>
+          <p><a class="btn btn-warning" [routerLink]="['/pizzas']">Ver Menú</a></p>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-interval="500">
+    <div class="carousel-item" data-interval="0">
       <div class="overlay-image" style="background-image:url(../../assets/carrusel-2.jpg);"></div>
       <div class="container">
         <div class="carousel-caption">
@@ -25,13 +24,13 @@
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-interval="500">
+    <div class="carousel-item" data-interval="0">
       <div class="overlay-image" style="background-image:url(../../assets/carrusel-3.jpg);"></div>
       <div class="container">
         <div class="carousel-caption text-end">
           <h1>Unete, se parte de nosotros</h1>
           <p>Acumula puntos, cangealos por tus pizzas favoritas</p>
-          <p><a class="btn btn-lg btn-primary" href="#">Unirme</a></p>
+          <p><a class="btn btn-warning" [routerLink]="['/register']">Unirme</a></p>
         </div>
       </div>
     </div>
