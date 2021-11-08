@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
     const {name, email, cel,password } = this.registerForm.value;
     try {
       if (this.registerForm.valid) {
-        const user = await this.authSvc.register(name,email, cel,password);
+        const user = await this.authSvc.register(email,password);
         if (user) {
           Swal.fire('user created successfully');
           this.router.navigate(['/home']);

@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 /*
 import firebase y autentificación
 */
-import { FirebaseApp } from '@firebase/app';
+
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+import { getAuth, signInWithCustomToken } from "firebase/auth";
 import { first } from 'rxjs/operators';
 
 @Injectable()
@@ -14,7 +14,10 @@ export class AuthService {
 
   /*Inyectamos en el contructor la propiedad AngularFireAuth
    */
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(
+    public afAuth: AngularFireAuth
+    
+    ) { }
   /* Crear metodos a utilizar difiniendo sus variables y tributos
       NOta: las variables se definen con sus atributos en minuscula
       cada vez que utilizamos async debemos hacer un try catch */
@@ -23,7 +26,6 @@ export class AuthService {
       const result = await this.afAuth.signInWithEmailAndPassword(
         email,
         password
-
       );
       return result;
     }
@@ -32,7 +34,7 @@ export class AuthService {
     }
   }
   //metodo register
-  async register(name: string, email: string, cel: number, password: string) {
+  async register( email: string, password: string) {
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(
         email,
@@ -42,7 +44,6 @@ export class AuthService {
     } catch (error) {
       return console.log(error);
     }
-
   }
   //metodo logout
   async logout() {
@@ -54,6 +55,18 @@ export class AuthService {
   }
   getCorrentUser() {
     return this.afAuth.authState.pipe(first()).toPromise();
+  }
+
+  //metodo actualizar datos
+
+  async updateData(rut: string){
+    try {
+      const result= await this.afAuth.signInWithCustomToken(
+        rut
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }
