@@ -5,7 +5,6 @@ import firebase y autentificación
 */
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { getAuth, signInWithCustomToken } from "firebase/auth";
 import { first } from 'rxjs/operators';
 
 @Injectable()

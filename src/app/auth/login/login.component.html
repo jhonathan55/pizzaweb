@@ -1,8 +1,10 @@
 <div class="container mt-5 mb-5">
+    
     <div class="row justify-content-md-center">
         <div class="col-md-6 mx-auto">
-            <div class="card-header">
-                <h3 class="text-center">Iniciar Sesión</h3>
+            <div class="card-header bg-warning" style="border: 1px solid black;">
+                <h3 class="text-center fs-2" style="color: #f0f2f7"><strong>Iniciar Sesión</strong> </h3>
+                <img src="../../../assets/logosb1.png" class=""  style="max-width:35%; height:auto; display:block; margin: auto;">
                 <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="m-3">
                     <!--directivas de angular para la validación de formularios mat-form-fiel-->
                     <div class="form-floating mb-3">
@@ -32,7 +34,7 @@
                     </div>
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-outline-primary mt-2">
+                        <button type="submit" class="btn btn-outline-light mt-2">
                             <font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;">Login</font>
                             </font>
@@ -40,16 +42,16 @@
                     </div>
                 </form>
 
-                <p class="text-info text-center">
+                <p class="text-info text-center ">
                     <a [routerLink]="['/register']">
                         <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">Register
+                            <font style="vertical-align: inherit; color: #f0f2f7">Register
                             </font>
                         </font>
                     </a>
                     <a [routerLink]="['/register']">
                         <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">Recover password
+                            <font style="vertical-align: inherit; color: #f0f2f7">Recover password
                             </font>
                         </font>
                     </a>

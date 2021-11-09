@@ -11,9 +11,13 @@ import { map } from 'rxjs/operators';
 export class ProductsService {
 
   products: Observable<Product[]> | undefined;
+  
   private productsCollection: AngularFirestoreCollection<Product>;
   
-  constructor(private readonly afs: AngularFirestore) { 
+  constructor(
+    private readonly afs: AngularFirestore
+    
+    ) { 
 
     this.productsCollection = afs.collection<Product>('products');
     this.getProducts();

@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { MyAccountRoutingModule } from './my-account-routing.module';
 import { MyAccountComponent } from './my-account.component';
-
+//impota modulos a from group y lo agregamos a los import
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { MyAccountComponent } from './my-account.component';
   ],
   imports: [
     CommonModule,
-    MyAccountRoutingModule
+    MyAccountRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class MyAccountModule { }

@@ -1,10 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning" >
   <!--inicio container-->
+  <img src="../../../assets/logosb1.png" class=""  style="max-width:5%; height:auto; display:block; margin: auto;">
   <div class="container">
-    
+   
     <a class="navbar-brand" [routerLink]="['/']">
+      
       <font style="vertical-align: inherit;">
-        <font style="vertical-align: inherit;">Pizza Mia</font>
+        <font style="vertical-align: inherit;">Pizza Mía</font>
       </font>
     </a>
     <span class="example-spacer"></span>
@@ -31,7 +33,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">
+          <a class="nav-link" [routerLink]="['/somos']">
             <font style="vertical-align: inherit;">
               <font style="vertical-align: inherit;">¿Quienes somos?</font>
             </font>
@@ -71,16 +73,10 @@
                 <font style="vertical-align: inherit;">logout</font>
               </font>
             </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink="/points">
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">Points Yuyito</font>
-              </font>
-            </a>
           </div>
         </li>
       </ul>
-     
+
       <ng-template #login>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
@@ -106,12 +102,6 @@
                 <font style="vertical-align: inherit;">Register</font>
               </font>
             </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink="/points">
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">Points Yuyito</font>
-              </font>
-            </a>
           </div>
         </li>
       </ng-template>
@@ -121,6 +111,6 @@
     <app-cart></app-cart>
     <!--fin collapse navbar-collapse-->
   </div>
- 
+
   <!--fin container-->
 </nav>

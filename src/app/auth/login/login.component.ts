@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { }
+  
   //metodo de logeo y redirección a la home pag 
   async onLogin() {
     const { email, password } = this.loginForm.value;
