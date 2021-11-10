@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-
 /*
 import firebase y autentificación
 */
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { first } from 'rxjs/operators';
+import { GoogleAuthProvider } from "firebase/auth";
+
 
 @Injectable()
 
@@ -14,9 +14,9 @@ export class AuthService {
   /*Inyectamos en el contructor la propiedad AngularFireAuth
    */
   constructor(
-    public afAuth: AngularFireAuth
-    
-    ) { }
+    public afAuth: AngularFireAuth,
+
+  ) { }
   /* Crear metodos a utilizar difiniendo sus variables y tributos
       NOta: las variables se definen con sus atributos en minuscula
       cada vez que utilizamos async debemos hacer un try catch */
@@ -32,18 +32,33 @@ export class AuthService {
       return console.log(error);
     }
   }
-  //metodo register
-  async register( email: string, password: string) {
+
+  //metodo resgister google
+  async loginGoogle() {
+    try {
+      const result = await this.afAuth.signInWithPopup(
+        new GoogleAuthProvider()
+      )
+      return result
+    } catch (error) {
+      return console.log(error);
+    }
+  }
+  //metodo register email y pass
+  async register(email: string, password: string) {
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(
         email,
         password
       )
+      
       return result;
     } catch (error) {
       return console.log(error);
     }
   }
+
+
   //metodo logout
   async logout() {
     try {
@@ -58,9 +73,9 @@ export class AuthService {
 
   //metodo actualizar datos
 
-  async updateData(rut: string){
+  async updateData(rut: string) {
     try {
-      const result= await this.afAuth.signInWithCustomToken(
+      const result = await this.afAuth.signInWithCustomToken(
         rut
       );
     } catch (error) {

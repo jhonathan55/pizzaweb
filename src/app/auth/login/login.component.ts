@@ -34,9 +34,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder
   ) { }
-
   ngOnInit(): void { }
-  
   //metodo de logeo y redirección a la home pag 
   async onLogin() {
     const { email, password } = this.loginForm.value;
@@ -66,6 +64,32 @@ export class LoginComponent implements OnInit {
         }
       }
     } catch (error) {
+      console.log(error)
+    }
+  }
+  //metodo logeo Google
+  async onLoginGoogle(){
+    try {
+      const user= await this.authSvc.loginGoogle()
+      if(user){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Bienvenido a la tienda ',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.router.navigate(['/home']);
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `Ha ocurrido un error en la validación de los datos`,
+        })
+      }
+
+    } catch (error) {
+     
       console.log(error)
     }
   }
