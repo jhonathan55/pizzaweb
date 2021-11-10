@@ -25,14 +25,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm = this.fb.group({
     //Validators.pattern metodo de FormBuelder qlue valida con una expresion regular previamente creado
-    name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.pattern(this.isValidEmail)]],
-    cel: ['', [Validators.required,
-    Validators.maxLength(this.lengthCell),
-    Validators.minLength(this.lengthCell)
-
-    ]
-    ],
     //minLength valida la cantidad min de caracteres
     password: ['', [Validators.required, Validators.minLength(this.lengthPassword)]],
     politicas: ['', [Validators.requiredTrue]]
@@ -48,7 +41,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   async onRegister() {
-    const {name, email, cel,password } = this.registerForm.value;
+    const {email,password } = this.registerForm.value;
     try {
       if (this.registerForm.valid) {
         const user = await this.authSvc.register(email,password);
@@ -61,6 +54,7 @@ export class RegisterComponent implements OnInit {
       console.error(error);
     }
   }
+
   //metodo valida campos vacios y muestra el error en txtbox con la propiedad de boostrap is-valid
   isValidField(field: string): string {
     const validatedField = this.registerForm.get(field);

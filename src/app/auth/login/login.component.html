@@ -40,6 +40,13 @@
                             </font>
                         </button>
                     </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-danger mt-2 " (click)="onLoginGoogle()">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Login Google</font>
+                            </font>
+                        </button>
+                    </div>
                 </form>
 
                 <p class="text-info text-center ">
@@ -49,6 +56,7 @@
                             </font>
                         </font>
                     </a>
+                    <br>
                     <a [routerLink]="['/register']">
                         <font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit; color: #f0f2f7">Recover password

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -31,7 +32,8 @@ export class MyAccountComponent implements OnInit {
   });
 
 
-
+  public user$: Observable<any> = this.authSvc.afAuth.user;
+  
   constructor(
     private authSvc: AuthService,
     private router: Router,
