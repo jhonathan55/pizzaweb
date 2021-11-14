@@ -8,12 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    MyAccountComponent
+    MyAccountComponent,
+    
   ],
   imports: [
     CommonModule,
     MyAccountRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class MyAccountModule { }

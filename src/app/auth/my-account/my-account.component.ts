@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { disableDebugTools } from '@angular/platform-browser';
+import { NavigationExtras, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
+import { userI } from '../interfaces/userI.interface';
 import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-my-account',
@@ -12,47 +16,64 @@ import { AuthService } from '../services/auth.service';
 })
 export class MyAccountComponent implements OnInit {
 
+  //observador que tiene los datos del usuario auth
+  public user$: Observable<any> = this.authSvc.afAuth.user;
+  
   private isValidEmail = /\S+@\S+\.\S+/;
   private lengthPassword = 6;
   private lengthCell = 9;
 
   updateForm = this.fb.group({
-    //Validators.pattern metodo de FormBuelder qlue valida con una expresion regular previamente creado
+    //Validators.pattern metodo de FormBuelder que valida con una expresion regular previamente creado
     name: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.pattern(this.isValidEmail)]],
-    cel: ['', [Validators.required,
-    Validators.maxLength(this.lengthCell),
-    Validators.minLength(this.lengthCell)
-
-    ]
-    ],
-    //minLength valida la cantidad min de caracteres
-    password: ['', [Validators.required, Validators.minLength(this.lengthPassword)]],
-    politicas: ['', [Validators.requiredTrue]]
+    email: [{ value: '', isReadonly: true },
+    [Validators.required, Validators.pattern(this.isValidEmail)]],
+    cel: ['', [
+      Validators.required,
+      Validators.maxLength(this.lengthCell),
+      Validators.minLength(this.lengthCell)
+    ]],
+    uid: ['', [Validators.required]]
   });
-
-
-  public user$: Observable<any> = this.authSvc.afAuth.user;
-  
   constructor(
     private authSvc: AuthService,
     private router: Router,
     private fb: FormBuilder
 
-  ) { }
+  ) {
+    //pasa el usuario auth al form
+    this.user$.subscribe(user => {
+      this.initValueForm(user)
+    });
+
+  }
 
   ngOnInit(): void {
+
   }
   //metodo de update
-  onUpdate() {
-    console.log("Hola")
-    //   this.authSvc.currentUser.updateProfile({
-    //     displayName:this.nombre
-    //   });
+  onGoToEdit() {
+    if (this.updateForm.valid) {
+      const name = this.updateForm.value.name;
+     
+      this.authSvc.UpdateProfile(name);
+      //this.updateForm.reset();
+    }
+  }
+//incializamos el form y pasamos los datos del auth user
+  initValueForm(user: userI): void {
+    this.updateForm.patchValue({
+      name: user.displayName,
+      cel: user.phoneNumber,
+      email: user.email,
+      uid: user.uid
+    });
   }
 
+  //validación de form
   isValidField(field: string): string {
     const validatedField = this.updateForm.get(field);
     return (!validatedField?.valid && validatedField?.touched) ? 'is-invalid' : validatedField?.touched ? 'is-valid' : '';
   }
+
 }

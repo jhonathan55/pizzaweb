@@ -8,49 +8,72 @@
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-        data-bs-parent="#accordionExample" style="">
+        data-bs-parent="#accordionExample">
+      
         <div class="container">
-          <h3 class="text-center">Actualizar datos</h3>
-          <form [formGroup]="updateForm" (ngSubmit)="onUpdate()" class="m-3">
+
+          <label class="form-label mt-4">Editar</label>
+          <form  (ngSubmit)="onGoToEdit()" [formGroup]="updateForm" class="m-3">
             <div class="form-floating mb-3">
               <!--formControlName captura las variables del form al TS tambien se declaran en  TS-->
-              <input type="email" class="form-control" id="floatingEmail" formControlName="email" readonly="" >
+              <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
+                  formControlName="email" [class]="isValidField('email')" readonly >
               <label for="floatingEmail">Email address</label>
-            </div>
+              <div class="invalid-feedback">
+                  <span *ngIf="updateForm.get('email')?.errors?.required">
+                      Debes ingresar un email.
+                  </span>
+                  <span *ngIf="updateForm.get('email')?.errors?.pattern">
+                      Debes ingresar un email valido.
+                  </span>
+              </div>
+          </div>
+            
             <div class="form-floating mb-3">
-              <!--formControlName captura las variables del form al TS tambien se declaran en  TS-->
-              <input type="text" class="form-control" id="floatingName" placeholder="John Wick" formControlName="name"
-                [class]="isValidField('name')">
-              <label for="floatingName">Name</label>
+              <input type="Nombre" class="form-control" id="name" formControlName="name" [class]="isValidField('name')"
+                placeholder="John With" >
+              <label for="name">Nombre</label>
               <div class="invalid-feedback">
                 <span *ngIf="updateForm.get('name')?.errors?.required">
-                  Ingresa tu nombre por favor
+                  Debes ingresar un nombre.
                 </span>
               </div>
             </div>
-
-            <div class="form-floating mb-3">
-              <!--formControlName captura las variables del form al TS tambien se declaran en  TS-->
-              <input type="tel" class="form-control" id="floatingTel" placeholder="12345678" formControlName="cel"
-                [class]="isValidField('cel')">
-              <label for="floatingTel">Teléfono Celular</label>
+            <div class="form-floating">
+              <input type="text" class="form-control" id="cel" formControlName="cel" [class]="isValidField('cel')"
+                placeholder="Celular">
+              <label for="Celular">Celular</label>
               <div class="invalid-feedback">
-
-                <span *ngIf="!updateForm.get('cel')?.errors?.minLength">
-                  Debes ingresar un celular de 9 numeros.
+                <span *ngIf="updateForm.get('cel')?.errors?.minLength">
+                  Debes ingresar un celular de 9 digitos.
+                </span>
+                <span *ngIf="updateForm.get('cel')?.errors?.required">
+                  Debes ingresar un celular de 9 digitos.
                 </span>
               </div>
+
+            </div>
+
+            <div class="form-floating">
+              <input type="text" class="form-control" id="uid" formControlName="uid" [class]="isValidField('uid')"
+                placeholder="uid">
+              <label for="Celular">uid</label>
+              <div class="invalid-feedback">
+                
+                <span *ngIf="updateForm.get('cel')?.errors?.required">
+                  Debes ingresar un celular de 9 digitos.
+                </span>
+              </div>
+
             </div>
 
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-outline-primary mt-2">
-                <font style="vertical-align: inherit;">
-                  <font style="vertical-align: inherit;">Actualizar</font>
-                </font>
-              </button>
+              <button type="submit" class="btn btn-outline-warning mt-2">Editar</button>
             </div>
           </form>
         </div>
+
+
       </div>
     </div>
     <div class="accordion-item">
@@ -61,7 +84,7 @@
         </button>
       </h2>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-        data-bs-parent="#accordionExample" style="">
+        data-bs-parent="#accordionExample">
         <div class="accordion-body">
           <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin
           adds the appropriate classes that we use to style each element. These classes control the overall appearance,
@@ -79,7 +102,7 @@
         </button>
       </h2>
       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-        data-bs-parent="#accordionExample" style="">
+        data-bs-parent="#accordionExample" >
         <div class="accordion-body">
           <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin
           adds the appropriate classes that we use to style each element. These classes control the overall appearance,

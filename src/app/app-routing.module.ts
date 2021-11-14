@@ -24,6 +24,9 @@ const routes: Routes = [
   
  
   { path: 'myAccount', loadChildren: () => import('./auth/my-account/my-account.module').then(m => m.MyAccountModule) },
+  
+ 
+ 
   //cuando no existe ninguna redirección te dirige a home sirve para apuntar a home desde el principio NOTA:siempre va al final
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 
