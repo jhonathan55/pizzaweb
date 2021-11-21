@@ -104,23 +104,16 @@ export class AuthService {
     }
   }
 
-  async UpdateProfile(name: string) {
+  async updateProfile(name: string) {
     try {
-      const num = '+56912345678'.toString()
       const profile = {
         displayName: name,
-        phoneNumber: num
       }
       console.log(name);
-
       return (await this.afAuth.currentUser)?.updateProfile(profile);
-
     } catch (error) {
       console.log(error);
-
     }
-
-
   }
 
  

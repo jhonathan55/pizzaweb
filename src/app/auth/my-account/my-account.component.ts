@@ -28,12 +28,7 @@ export class MyAccountComponent implements OnInit {
     name: ['', [Validators.required]],
     email: [{ value: '', isReadonly: true },
     [Validators.required, Validators.pattern(this.isValidEmail)]],
-    cel: ['', [
-      Validators.required,
-      Validators.maxLength(this.lengthCell),
-      Validators.minLength(this.lengthCell)
-    ]],
-    uid: ['', [Validators.required]]
+    uid: [{ value: '', isReadonly: true }, [Validators.required]]
   });
   constructor(
     private authSvc: AuthService,
@@ -54,9 +49,9 @@ export class MyAccountComponent implements OnInit {
   //metodo de update
   onGoToEdit() {
     if (this.updateForm.valid) {
-      const name = this.updateForm.value.name;
-     
-      this.authSvc.UpdateProfile(name);
+      const user = this.updateForm.value;
+      const name=this.updateForm.value.name;
+      this.authSvc.updateProfile(name);
       //this.updateForm.reset();
     }
   }
@@ -64,7 +59,6 @@ export class MyAccountComponent implements OnInit {
   initValueForm(user: userI): void {
     this.updateForm.patchValue({
       name: user.displayName,
-      cel: user.phoneNumber,
       email: user.email,
       uid: user.uid
     });
