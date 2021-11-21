@@ -18,7 +18,7 @@ export class MyAccountComponent implements OnInit {
 
   //observador que tiene los datos del usuario auth
   public user$: Observable<any> = this.authSvc.afAuth.user;
-  
+
   private isValidEmail = /\S+@\S+\.\S+/;
   private lengthPassword = 6;
   private lengthCell = 9;
@@ -28,8 +28,11 @@ export class MyAccountComponent implements OnInit {
     name: ['', [Validators.required]],
     email: [{ value: '', isReadonly: true },
     [Validators.required, Validators.pattern(this.isValidEmail)]],
-    uid: [{ value: '', isReadonly: true }, [Validators.required]]
+    uid: [{ value: '', isReadonly: true }, [Validators.required]],
+
   });
+
+
   constructor(
     private authSvc: AuthService,
     private router: Router,
@@ -49,13 +52,26 @@ export class MyAccountComponent implements OnInit {
   //metodo de update
   onGoToEdit() {
     if (this.updateForm.valid) {
-      const user = this.updateForm.value;
-      const name=this.updateForm.value.name;
-      this.authSvc.updateProfile(name);
+      Swal.fire({
+        title: 'Deseas Editar el Nombre?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Editado!', '', 'success')
+          const user = this.updateForm.value;
+          const name = this.updateForm.value.name;
+          this.authSvc.updateProfile(name, user);
+        }
+      })
+
       //this.updateForm.reset();
     }
   }
-//incializamos el form y pasamos los datos del auth user
+  //incializamos el form y pasamos los datos del auth user
   initValueForm(user: userI): void {
     this.updateForm.patchValue({
       name: user.displayName,
@@ -69,5 +85,6 @@ export class MyAccountComponent implements OnInit {
     const validatedField = this.updateForm.get(field);
     return (!validatedField?.valid && validatedField?.touched) ? 'is-invalid' : validatedField?.touched ? 'is-valid' : '';
   }
+
 
 }

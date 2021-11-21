@@ -17,7 +17,7 @@ import { userI } from '../interfaces/userI.interface';
 export class AuthService {
 
   user$: Observable<userI[]> | undefined;
-  users$: Observable<userI[]> | undefined;
+ 
   private usersCollection: AngularFirestoreCollection<userI>;
 
   /*Inyectamos en el contructor la propiedad AngularFireAuth
@@ -67,8 +67,9 @@ export class AuthService {
         email,
         password
       )
-
+      
       return result;
+      
     } catch (error) {
       return console.log(error);
     }
@@ -87,7 +88,7 @@ export class AuthService {
   }
 
   private getUser(): void {
-    this.users$ = this.usersCollection.snapshotChanges().pipe(
+    this.user$ = this.usersCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => a.payload.doc.data() as userI))
     );
   }
@@ -104,12 +105,13 @@ export class AuthService {
     }
   }
 
-  async updateProfile(name: string) {
+  async updateProfile(name: string,user:userI) {
     try {
       const profile = {
         displayName: name,
       }
       console.log(name);
+      this.saveUserProfile(user);
       return (await this.afAuth.currentUser)?.updateProfile(profile);
     } catch (error) {
       console.log(error);

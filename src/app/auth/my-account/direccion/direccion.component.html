@@ -1,0 +1,70 @@
+<form class="m-3" (ngSubmit)="saveAdrresForm()" [formGroup]="adrresForm">
+
+    <div class="form-group">
+        <label for="region" class="form-label mt-2">Región</label>
+        <select class="form-select" id="region" formControlName="region" (ngModelChange)="onSelect($event)"
+            [class]="isValidField('region')">
+            <option *ngFor="let item of regiones" [value]="item.id">
+                {{item.name}}
+            </option>
+        </select>
+        <div class="invalid-feedback">
+            <span *ngIf="adrresForm.get('region')?.errors?.required">
+                Recuerda seleccionar una región.
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group" *ngIf="comunas?.length ">
+        <label for="comuna" class="form-label mt-2">Cumuna</label>
+        <select class="form-select" id="comuna" formControlName="comuna" [class]="isValidField('comuna')">
+            <option *ngFor="let item of comunas" [value]="item.id">
+                {{item.name}}
+            </option>
+        </select>
+        <div class="invalid-feedback">
+            <span *ngIf="adrresForm.get('comuna')?.errors?.required">
+                Recuerda seleccionar una comuna.
+            </span>
+        </div>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="calle" formControlName="calle" [class]="isValidField('calle')"
+            placeholder="Dos Sur">
+        <label for="calle">Calle</label>
+        <div class="invalid-feedback">
+            <span *ngIf="adrresForm.get('calle')?.errors?.required">
+                Recuerda ingresar una calle valida.
+            </span>
+        </div>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="num" formControlName="num" [class]="isValidField('num')"
+            placeholder="5012">
+        <label for="num">Numero</label>
+        <div class="invalid-feedback">
+            <span *ngIf="adrresForm.get('num')?.errors?.required">
+                Recuerda ingresar un numero de calle valido.
+            </span>
+        </div>
+    </div>
+
+    
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="dpa" formControlName="dpa" [class]="isValidField('dpa')"
+            placeholder="5012">
+        <label for="dpa">Departamento (opcional)</label>
+        <div class="invalid-feedback">
+            <span *ngIf="adrresForm.get('dpa')?.errors?.required">
+                Recuerda ingresar un numero de calle valido.
+            </span>
+        </div>
+    </div>
+
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-outline-warning mt-2"  type="submit">Guardar</button>
+    </div>
+</form>
