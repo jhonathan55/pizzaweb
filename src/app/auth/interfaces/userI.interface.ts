@@ -5,7 +5,7 @@ export interface userI {
     email?: string,
     password?: string,
     phoneNumber?: string,
-    photoURL?: string
-
+    photoURL?: string,
+    direccion?: string
 
 }

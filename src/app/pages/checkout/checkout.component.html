@@ -1,1 +1,53 @@
-<p>checkout works!</p>
+<div class="container">
+    <form class="form item" #checkoutForm="ngForm">
+        <mat-form-field class="form__element">
+            <input matInput placeholder="Nombre" required [(ngModel)]="model.name" name="name" #name="ngModel" />
+            <mat-error *ngIf="!name.valid || name.pristine">
+                Nombre es requerido
+            </mat-error>
+        </mat-form-field>
+        {{isDelivery}} - isDelivery?
+        <mat-radio-group class="form__element">
+            <!--Revisar los radios ya que no aparecen por navegador. Si es posible ocupar los botones de bootstrap RRT -->
+            <p>Escoge una opción:</p>
+            <mat-radio-button value="pickup" (change)="onPickupOrDelivery(false)" checked>Retiro en tienda
+            </mat-radio-button>
+            <mat-radio-button value="delivery" (change)="onPickupOrDelivery(true)">Entrega a domicilio
+            </mat-radio-button>
+        </mat-radio-group>
+        <ng-container *ngIf="isDelivery;  else showStores">
+
+            <mat-form-field class="form__element">
+                <!--2:28:13 -->
+                <input matInput placeholder="Dirección de envío" [(ngModel)]="model.shippingAddress"
+                    name="shippingAddress" #shippingAddress="ngModel" />
+            </mat-form-field>
+            <mat-form-field class="form__element">
+                <!--2:28:55 -->
+                <input matInput placeholder="Ciudad" [(ngModel)]="model.city" name="city" #shippingAddress="ngModel" />
+            </mat-form-field>
+        </ng-container>
+
+        <ng-template #showStores>
+
+            <!-- Revisar listado de tiendas en firebase 2:30:23 hasta 2:34: -->
+            <mat-form-field class="form__element">
+                <!--2:30:23 listado de tiendas  -->
+                <mat-label>Seleccionar</mat-label>
+                <mat-select name="store" #store="ngModel" [(ngModel)]="model.store">
+                    <mat-option [value]="tienda" *ngFor="let tienda of stores">
+                        {{tienda?.name}} - {{tienda?.openingHours}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </ng-template>
+
+
+    </form>
+</div>
+<app-details></app-details>
+<div class="container__button">
+    <button class="btn btn-primary" type="submit" [disabled]="!checkoutForm.form.valid"
+        (click)="onSubmit()">Verificar</button>
+</div>

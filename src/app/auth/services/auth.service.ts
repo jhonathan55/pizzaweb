@@ -17,8 +17,10 @@ import { userI } from '../interfaces/userI.interface';
 export class AuthService {
 
   user$: Observable<userI[]> | undefined;
+  
  
   private usersCollection: AngularFirestoreCollection<userI>;
+
 
   /*Inyectamos en el contructor la propiedad AngularFireAuth
    */
@@ -110,7 +112,7 @@ export class AuthService {
       const profile = {
         displayName: name,
       }
-      console.log(name);
+   
       this.saveUserProfile(user);
       return (await this.afAuth.currentUser)?.updateProfile(profile);
     } catch (error) {
