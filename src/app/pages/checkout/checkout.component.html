@@ -1,13 +1,27 @@
 <div class="container">
-    <form class="form item" #checkoutForm="ngForm">
+    <form class="form item" [formGroup]="checkoutForm">
+
+        <div class="form-floating">
+            <input type="hidden" class="form-control" id="uidUser" formControlName="uidUser"
+                [class]="isValidField('uidUser')" placeholder="uidUser" readonly>
+
+        </div>
+
         <mat-form-field class="form__element">
-            <input matInput placeholder="Nombre" required [(ngModel)]="model.name" name="name" #name="ngModel" />
-            <mat-error *ngIf="!name.valid || name.pristine">
+            <input matInput placeholder="Nombre" id="name" formControlName="name" [class]="isValidField('name')" />
+            <mat-error *ngIf="checkoutForm.get('name')?.errors?.required">
                 Nombre es requerido
             </mat-error>
         </mat-form-field>
-        {{isDelivery}} - isDelivery?
-        <mat-radio-group class="form__element">
+
+        <mat-form-field class="form__element">
+            <input matInput placeholder="Email" id="email" formControlName="email" [class]="isValidField('email')" />
+            <mat-error *ngIf="checkoutForm.get('email')?.errors?.required">
+                Email es requerido
+            </mat-error>
+        </mat-form-field>
+
+        <mat-radio-group matInput class="form__element">
             <!--Revisar los radios ya que no aparecen por navegador. Si es posible ocupar los botones de bootstrap RRT -->
             <p>Escoge una opción:</p>
             <mat-radio-button value="pickup" (change)="onPickupOrDelivery(false)" checked>Retiro en tienda
@@ -15,39 +29,85 @@
             <mat-radio-button value="delivery" (change)="onPickupOrDelivery(true)">Entrega a domicilio
             </mat-radio-button>
         </mat-radio-group>
+
         <ng-container *ngIf="isDelivery;  else showStores">
 
             <mat-form-field class="form__element">
-                <!--2:28:13 -->
-                <input matInput placeholder="Dirección de envío" [(ngModel)]="model.shippingAddress"
-                    name="shippingAddress" #shippingAddress="ngModel" />
+                <mat-label>Región</mat-label>
+                <mat-select id="region" formControlName="region" [class]="isValidField('region')"
+                    (ngModelChange)="onSelect($event)">
+                    <mat-option *ngFor="let item of regiones" [value]="item.id">
+                        {{item.name}}
+                    </mat-option>
+
+                </mat-select>
+                <mat-error *ngIf="checkoutForm.get('region')?.errors?.required">
+                    Selecciona una Región
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form__element" *ngIf="comunas?.length ">
+                <mat-label>Comuna</mat-label>
+                <mat-select id="comuna" formControlName="comuna" [class]="isValidField('comuna')">
+                    <mat-option *ngFor="let item of comunas" [value]="item.id">
+                        {{item.name}}
+                    </mat-option>
+
+                </mat-select>
+                <mat-error *ngIf="checkoutForm.get('comuna')?.errors?.required">
+                    Selecciona una Comuna
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form__element">
+                <input matInput placeholder="calle" id="calle" formControlName="calle"
+                    [class]="isValidField('calle')" />
+                <mat-error *ngIf="checkoutForm.get('calle')?.errors?.required">
+                    Ingresa una calle valida.
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="form__element">
-                <!--2:28:55 -->
-                <input matInput placeholder="Ciudad" [(ngModel)]="model.city" name="city" #shippingAddress="ngModel" />
+                <input matInput placeholder="Numero" id="num" formControlName="num" [class]="isValidField('num')" />
+                <mat-error *ngIf="checkoutForm.get('num')?.errors?.required">
+                    Ingresar un numero de calle valido.
+                </mat-error>
             </mat-form-field>
+            <mat-form-field class="form__element">
+                <input matInput placeholder="Departamento (opcional)" id="dpa" formControlName="dpa" />
+
+            </mat-form-field>
+
         </ng-container>
 
         <ng-template #showStores>
-
             <!-- Revisar listado de tiendas en firebase 2:30:23 hasta 2:34: -->
             <mat-form-field class="form__element">
                 <!--2:30:23 listado de tiendas  -->
-                <mat-label>Seleccionar</mat-label>
-                <mat-select name="store" #store="ngModel" [(ngModel)]="model.store">
-                    <mat-option [value]="tienda" *ngFor="let tienda of stores">
+                <mat-label>Sucursal</mat-label>
+                <mat-select name="sucursal" id="sucursal" formControlName="sucursal">
+                    <mat-option [value]="tienda" *ngFor="let tienda of stores$ | async">
                         {{tienda?.name}} - {{tienda?.openingHours}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="checkoutForm.get('sucursal')?.errors?.required">
+                    Elige una sucursal
+                </mat-error>
             </mat-form-field>
-
         </ng-template>
-
-
     </form>
+
+
+
 </div>
+
 <app-details></app-details>
+
 <div class="container__button">
-    <button class="btn btn-primary" type="submit" [disabled]="!checkoutForm.form.valid"
-        (click)="onSubmit()">Verificar</button>
+    <script src="https://www.mercadopago.cl/integrations/v1/web-payment-checkout.js"
+        data-preference-id="520581618-7e42b482-32e4-4083-a8cb-07a2b6303db7" data-source="button">
+        </script>
+
+
+    <button class="btn btn-primary" type="submit" (click)="onSubmit()">Verificar</button>
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
 </div>
