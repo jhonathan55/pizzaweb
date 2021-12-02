@@ -4,10 +4,11 @@ Tabla para mostrar detalle checkout-->
     <table class="table">
         <thead>
             <tr>
-                <th>Item</th>
+                <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Precio Un.</th>
                 <th>Subtotal</th>
+                <th>Pizza</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@ Tabla para mostrar detalle checkout-->
                 <td>{{item.qty}}</td>
                 <td>{{item.price | currency}}</td>
                 <td>{{item.qty * item.price | currency}}</td>
+                <td><img src="{{item?.img}}"></td>
             </tr>
         </tbody>
     </table>

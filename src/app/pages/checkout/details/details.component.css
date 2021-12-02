@@ -23,3 +23,15 @@ td{
     color: #000;
     font-size: 1.5rem;
 }
+img
+{
+    /*height=Altura
+      width = Ancho*/
+    margin: 5px;
+    margin-top: 5px;
+    min-height: 4rem;
+    max-height: 8rem;
+    min-width: 2rem;
+    max-width: 6rem;
+    height: 100%;
+}

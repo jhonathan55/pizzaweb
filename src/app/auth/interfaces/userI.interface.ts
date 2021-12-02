@@ -6,6 +6,16 @@ export interface userI {
     password?: string,
     phoneNumber?: string,
     photoURL?: string,
-    direccion?: string
+    direccion?: DireccionI[],
 
+}
+
+export interface DireccionI {
+    id?: string,
+    region?: string,
+    comuna?: string,
+    calle?: string,
+    num?: number,
+    dpto?: string,
+    userId?:string
 }

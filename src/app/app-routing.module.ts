@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   
- 
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   //rutas creadas automaticamente por el modelo de rutas Ng g m nameForder -m=app --route nameForder 
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) }, 
   { path: 'login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule) }, 
@@ -15,9 +15,8 @@ const routes: Routes = [
   { path: 'somos', loadChildren: () => import('./auth/somos/somos.module').then(m => m.SomosModule) },
   { path: 'myAccount', loadChildren: () => import('./auth/my-account/my-account.module').then(m => m.MyAccountModule) },
   
- 
- 
   //cuando no existe ninguna redirección te dirige a home sirve para apuntar a home desde el principio NOTA:siempre va al final
+ 
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 
 ];

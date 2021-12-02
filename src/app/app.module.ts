@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,10 @@ import {HttpClientModule} from '@angular/common/http';
 import { CartComponent } from './shared/cart/cart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+//imp de mercadopago
+
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -34,11 +38,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     HttpClientModule,
-    BrowserAnimationsModule
-    
+    BrowserAnimationsModule,
+    NgxPayPalModule,
+    NgxSpinnerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {
 

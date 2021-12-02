@@ -20,3 +20,13 @@ background-color: rgb(245, 135, 116);
  
     background-color: rgb(247, 255, 175);
 }
+img
+{
+    margin: 5px;
+    margin-top: 5px;
+    min-height: 10rem;
+    max-height: 10rem;
+    min-width: 10rem;
+    max-width: 20rem;
+    height: 100%;
+}

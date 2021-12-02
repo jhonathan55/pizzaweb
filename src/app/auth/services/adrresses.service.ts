@@ -17,7 +17,7 @@ export class AdrressesService {
   constructor(
     private readonly afs: AngularFirestore
   ) {
-    this.adrressesCollection = afs.collection<DireccionI>('/stores');
+    this.adrressesCollection = afs.collection<DireccionI>('direccion');
     this.getAdrresses();
   }
   //metodo que elimina una direccion
@@ -32,12 +32,12 @@ export class AdrressesService {
     });
   }
   //metodo que actualiza y guarda una direccion nueva
-  //nota: falta pasar el id en la data data={id,...data}
-  onSaveAdrres(adrres: DireccionI, adrId: string): Promise<void> {
+
+  onSaveAdrres(adrres: DireccionI, adrId?: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
       try {
-        const id = adrId || this.afs.createId();
-        const data = { ...adrres };
+        const id = adrId ||this.afs.createId();
+        const data = {id, ...adrres };
         const result = await this.adrressesCollection.doc(id).set(data);
         resolve(result);
       } catch (error) {
@@ -51,5 +51,9 @@ export class AdrressesService {
       map(actions => actions.map(a => a.payload.doc.data() as DireccionI))
     );
   }
+
+
+
+  
 
 }
