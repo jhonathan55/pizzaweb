@@ -1,0 +1,9 @@
+<div class="container-fluid m-3">
+ <app-product 
+ (addToCartClick)="addToCart($event)"
+ [item]="item" *ngFor="let item of products$ | async"></app-product>
+
+</div>
+
+
+

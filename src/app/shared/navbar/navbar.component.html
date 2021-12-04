@@ -1,0 +1,117 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning" >
+  <!--inicio container-->
+  <img src="../../../assets/logosb1.png" class=""  style="max-width:5%; height:auto; display:block; margin: auto;">
+  <div class="container">
+   
+    <a class="navbar-brand" [routerLink]="['/']">
+      
+      <font style="vertical-align: inherit;">
+        <font style="vertical-align: inherit;">Pizza Mía</font>
+      </font>
+    </a>
+    <span class="example-spacer"></span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+      aria-controls="navbarColor01" aria-expanded="false" aria-label="Navegación de palanca">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!--collapse navbar-collapse-->
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" [routerLink]="['/']">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">Hogar
+              </font>
+            </font>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/products']">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">Pizza</font>
+            </font>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/somos']">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">¿Quienes somos?</font>
+            </font>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/liqudacion']">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">Contacto</font>
+            </font>
+          </a>
+        </li>
+        <!--Si no esta logeado no se muestra el login con la propiedad template, pero si existe un usuario logeado muestra el correo y las opciones propias del usuario
+        -->
+        <li class="nav-item dropdown" *ngIf="user$ | async as user; else login">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-person-circle m-1" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">{{user?.email}} </font>
+            </font>
+
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/myAccount">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">My account</font>
+              </font>
+            </a>
+            <a class="dropdown-item" (click)="onLogout()">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">logout</font>
+              </font>
+            </a>
+          </div>
+        </li>
+      </ul>
+
+      <ng-template #login>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">Login </font>
+            </font>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/login">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">Login in</font>
+              </font>
+            </a>
+            <a class="dropdown-item" routerLink="/register">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">Register</font>
+              </font>
+            </a>
+          </div>
+        </li>
+      </ng-template>
+
+    </div>
+   <!--cartComponent-->
+    <!--Se agrega metodo Checkout RRT-->
+    <app-cart class="mouseHover" (click)="goToCheckout()"></app-cart>
+    <!--fin collapse navbar-collapse-->
+  </div>
+
+  <!--fin container-->
+</nav>
