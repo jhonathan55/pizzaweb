@@ -17,7 +17,8 @@ import { StoresService } from '../products/services/stores.service';
 import { OrdersService } from '../products/services/orders.service';
 import { DetailOrderService } from '../products/services/detail-order.service';
 
-
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-checkout',
@@ -29,11 +30,12 @@ import { DetailOrderService } from '../products/services/detail-order.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  @Input() tienda!: Store;
-
-
   //paypalconfig
-  // public payPalConfig?: IPayPalConfig;
+  public payPalConfig?: IPayPalConfig;
+
+  public total:number=0;
+
+
   //cart Item productosComprados
   cart: Product[] = [];
   detail: DetailsProductI[] = [];
@@ -66,6 +68,7 @@ export class CheckoutComponent implements OnInit {
     num: ['', [Validators.required]],
     dpa: [''],
     sucursal: ['', [Validators.required]],
+    total:['']
   });
 
   constructor(
@@ -75,7 +78,6 @@ export class CheckoutComponent implements OnInit {
     private fb: FormBuilder,
     private regionesSvc: RegionesService,
     private orderSvc: OrdersService,
-    private detailOrder: DetailOrderService,
     private shoppingCartSvc: ShoppingCartService,
   ) {
 
@@ -90,8 +92,64 @@ export class CheckoutComponent implements OnInit {
     this.regiones = this.regionesSvc.getRegion();
     this.getDataCart();
     this.prepareDetail();
+    this.initConfig();
+
+  }
+
+  private initConfig(): void {
+  
+    this.payPalConfig = {
+      currency: 'USD',
+      clientId: environment.clienteID,
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        
+        purchase_units: [{
+          amount: {
+            currency_code: 'USD',
+            value: this.total.toString(),
+            breakdown: {
+              item_total: {
+                currency_code: 'USD',
+                value: this.total.toString()
+              }
+            }
+          },
+          items: this.prepareDetail()
+        }]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then((details: any) => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
 
 
+      },
+      onError: err => {
+        console.log('OnError', err);
+
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+
+      }
+    };
   }
 
   //incializamos el form y pasamos los datos del auth user
@@ -100,6 +158,7 @@ export class CheckoutComponent implements OnInit {
       uidUser: user.uid,
       name: user.displayName,
       email: user.email,
+  
 
     });
   }
@@ -116,6 +175,7 @@ export class CheckoutComponent implements OnInit {
     const orderId = this.checkoutForm.value.id || null;
     const order = this.checkoutForm.value;
     const details: DetailsProductI[] = this.cart;
+
     const sucursal = this.checkoutForm.value.sucursal;
     const date = this.getCurrentDay();
     if (this.isDelivery) {
@@ -130,16 +190,11 @@ export class CheckoutComponent implements OnInit {
         num: order.num,
         dpa: order.dpa,
         details: details,
+        total:this.total
       }
       //metodo comentado por pruebas Nota** Descomentar para insert de order
       this.orderSvc.onSaveOrder(data, orderId)
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Gracias por tu compra, tu pedido se esta gestionando',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      this.onBuy(orderId);
       this.router.navigate(['/home']);
 
     } else {
@@ -150,21 +205,27 @@ export class CheckoutComponent implements OnInit {
         fecha: date,
         delivery: this.isDelivery,
         sucursalId: order.sucursal,
-        details: details,
 
+        details: details,
+        total:this.total
       }
       //metodo comentado por pruebas Nota** Descomentar para insert de order
       this.orderSvc.onSaveOrder(data, orderId)
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Gracias por tu compra, tu pedido se esta gestionando',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      this.onBuy(orderId);
       this.router.navigate(['/home']);
     }
     console.log("===>", details);
+  }
+
+  //metodo con numero de orden
+  onBuy(numOrd: String) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Gracias por tu compra, tu pedido numero ' + numOrd + 'se esta gestionando!',
+      showConfirmButton: false,
+      timer: 2500
+    })
   }
 
   //validación de form
@@ -186,10 +247,15 @@ export class CheckoutComponent implements OnInit {
 
   private prepareDetail(): DetailsProductI[] {
     this.detail = [];
-    this.cart.forEach(res => {
-      console.log(res);
 
+    this.cart.forEach(res => {
+      
+      this.total=res.price+this.total;
+      
+      console.log("resul", res);
     });
+    
+    
     return this.detail
 
   }
@@ -201,7 +267,7 @@ export class CheckoutComponent implements OnInit {
         tap((product: Product[]) => this.cart = product)
       )
       .subscribe();
-    console.log(this.cart);
+    console.log("aca", this.cart);
 
   }
 
