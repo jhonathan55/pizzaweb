@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CheckoutRoutingModule } from './checkout-routing.module';
@@ -19,6 +19,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
+
+
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     CheckoutComponent,
@@ -35,8 +40,12 @@ import {MatListModule} from '@angular/material/list';
     MatSelectModule,   
     MatOptionModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    NgxPayPalModule,
+    NgxSpinnerModule
     
-  ]
+    
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CheckoutModule { }

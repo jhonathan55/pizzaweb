@@ -6,5 +6,6 @@ export interface Product {
     categoryId: number;
     stock: number;
     qty:number;
-    img:string
+    img:string;
+    unit_amount?:{value?:string,currency_code?:string}
 }

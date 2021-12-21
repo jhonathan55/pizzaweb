@@ -4,7 +4,7 @@ import firebase y autentificación
 */
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { first } from 'rxjs/operators';
-import { GoogleAuthProvider, updateProfile, getAuth, updateCurrentUser, updatePhoneNumber } from "firebase/auth";
+import { GoogleAuthProvider} from "firebase/auth";
 import { Observable } from 'rxjs';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';

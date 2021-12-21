@@ -15,7 +15,8 @@ export interface OrdersI {
     calle?: string,
     num?: string,
     dpa?: string,
-    details?:DetailsProductI[]
+    details?:DetailsProductI[],
+    total:number
 
 }
 
@@ -34,4 +35,5 @@ export interface DetailsProductI {
     price?:number,
     aqy?:number,
     stock?:number,
+   
 }
